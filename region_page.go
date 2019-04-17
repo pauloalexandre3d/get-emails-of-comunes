@@ -7,8 +7,9 @@ import (
 )
 
 type region struct {
-	name string
-	link string
+	name      string
+	link      string
+	provinces []province
 }
 
 type regions []region
@@ -20,7 +21,7 @@ func getRegions() regions {
 
 	c.OnHTML("#ar > div > div.fa > dl", func(e *colly.HTMLElement) {
 		e.ForEach("dt > a", func(_ int, e *colly.HTMLElement) {
-			region := region{e.Text, e.Attr("href")}
+			region := region{e.Text, e.Attr("href"), nil}
 			regions = append(regions, region)
 		})
 	})
